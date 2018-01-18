@@ -1,13 +1,13 @@
 var clock = function() {
-    this._date, this._clock;
+    var _date, _clock;
     var _start = function() {
-        this._clock = setInterval(function() {
+        _clock = setInterval(function() {
             _date = new Date();
         }, 1000);
     }
 
     var _get = function() {
-        return this._date;
+        return _date;
     }
 
     return {
