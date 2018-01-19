@@ -1,0 +1,17 @@
+#clock {
+	position: relative;
+    height: 200px;
+    width: 200px;
+    margin: auto;
+    border-radius: 100%;
+    border: 2px solid;
+    color: #607d8b;
+}
+#clock .pointers {}
+#clock .pointers .secondsPointer {}
+#clock .pointers .minutesPointer {}
+#clock .pointers .HoursPointer {}
+
+#clock .dots {}
+#clock .dots .dot {}
+#clock .dots .dot.minutes {}
