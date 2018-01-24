@@ -35,6 +35,7 @@
                     </div>
                     <div class="col s8">
                         <div id="relogio"></div>
+                        <input type="text" id="alarm" />
                     </div>
                 </div>
             </div>
@@ -45,8 +46,36 @@
 <script type="text/javascript">
     var relogio = new clock();
     relogio.iniciar();
+
+    var dismiss = false;
+    var soneca = false;
+    var checkAlarm = function(now) {
+
+        var alarm = $("#alarm");
+        var hourset = alarm.val().split(":")[0];
+        var minuteset = alarm.val().split(":")[1];
+        if (soneca) {
+            minuteset = parseInt(minuteset) + 5;
+        }
+        if (parseInt(hourset) == now.getHours() && now.getMinutes() == parseInt(minuteset) && !dismiss) {
+            dismiss = !confirm("Alarme! soneca?");
+            soneca = !dismiss;
+        }
+    }
+
     var verHorario = function() {
-        document.getElementById("relogio").innerHTML = relogio.verHora();
+        var now = new Date();
+        second = now.getSeconds() * 6,
+            minute = now.getMinutes() * 6 + second / 60,
+            hour = ((now.getHours() % 12) / 12) * 360 + 90 + minute / 12;
+        //document.getElementById("relogio").innerHTML = relogio.verHora();
+        document.getElementById("relogio").innerHTML = now;
+        $(".secondsPointer").css('transform', "rotate(" + second + "deg)");
+        $(".minutesPointer").css('transform', "rotate(" + minute + "deg)");
+        $(".HoursPointer").css('transform', "rotate(" + hour + "deg)");
+
+        checkAlarm(now);
+
     }
     setInterval(verHorario, 1001);
 
@@ -55,6 +84,13 @@
     for (let x = 0; x < 59; x++) {
         let minuteDot = `<i class="dot minutes minute_${x}" style="transform:rotate(${(6*x)}deg)"></i>`
     }
+
+
+    var clock = document.getElementById("clock");
+    clock.style.height = clock.offsetWidth + "px";
+    window.addEventListener("resize", function() {
+        clock.style.height = clock.offsetWidth + "px";
+    });
 </script>
 
 </html>
