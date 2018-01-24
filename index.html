@@ -35,7 +35,7 @@
                     </div>
                     <div class="col s8">
                         <div id="relogio"></div>
-                        <input type="text" id="alarm" />
+                        <input type="time" id="alarm" />
                     </div>
                 </div>
             </div>
@@ -52,6 +52,11 @@
     var checkAlarm = function(now) {
 
         var alarm = $("#alarm");
+
+        if (alarm.val().length == 0) {
+            return;
+        }
+
         var hourset = alarm.val().split(":")[0];
         var minuteset = alarm.val().split(":")[1];
         if (soneca) {
